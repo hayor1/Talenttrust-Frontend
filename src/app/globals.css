@@ -1,248 +1,184 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #2563eb;
-  --radius: 0.5rem;
-  --surface: #f8fafc;
-
-  /* Legend/band tokens (a11y/reputation-31): used by ReputationProfile
-     legend items. Light-mode values match the original indigo-50/200/900
-     palette so the light theme is visually unchanged. */
-  --legend-active-bg: #eef2ff;
-  --legend-active-border: #c7d2fe;
-  --legend-active-foreground: #312e81;
-
-  /* Status/badge tokens (a11y/theming-27): used by StatusBadge and the
-     toast badges. Light-mode values match the existing Tailwind pastel
-     chips (emerald/sky/rose/amber-100 + 800) so the light theme is visually
-     unchanged. See docs/components/Accessibility.md for audited ratios. */
-  --status-success-bg: #d1fae5;
-  --status-success-foreground: #065f46;
-  --status-info-bg: #e0f2fe;
-  --status-info-foreground: #075985;
-  --status-error-bg: #ffe4e6;
-  --status-error-foreground: #9f1239;
-  --status-warning-bg: #fef3c7;
-  --status-warning-foreground: #92400e;
+  --bg: #f7f8fc;
+  --surface: #ffffff;
+  --surface-2: #f1f3fa;
+  --text: #0f172a;
+  --muted: #5b6478;
+  --border: #e3e7f0;
+  --brand: #4f46e5;
+  --brand-2: #0ea5e9;
+  --brand-ink: #ffffff;
+  --ok: #059669;
+  --warn: #d97706;
+  --bad: #dc2626;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --max: 1120px;
+  color-scheme: light;
 }
 
-[data-theme='dark'] {
-  --background: #020617;
-  --foreground: #f8fafc;
-  --card: #020617;
-  --card-foreground: #f8fafc;
-  --popover: #020617;
-  --popover-foreground: #f8fafc;
-  --primary: #3b82f6;
-  --primary-foreground: #020617;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #f8fafc;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #f8fafc;
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #3b82f6;
-  --surface: #0f172a;
-
-  /* Dark-mode legend tokens: deep indigo background with light indigo
-     text so the active band legibly stands out against --surface. */
-  --legend-active-bg: #1e1b4b;
-  --legend-active-border: #4338ca;
-  --legend-active-foreground: #e0e7ff;
-
-  /* Dark-mode status/badge tokens: swapped from light pastel chips
-     (emerald/sky/rose/amber-100) to deep tinted backgrounds with bright
-     tinted text. Verified two things, not just one:
-       1. text-foreground vs its own chip-bg meets AA 4.5:1 (all 4 pass,
-          5.3:1-6.3:1).
-       2. chip-bg vs --surface (#0f172a) has enough separation to read as
-          a distinct chip rather than blending into the dark panel
-          (all 4 land at ~1.8-2.0:1, clearly visible).
-     Ratios recorded in docs/components/Accessibility.md. */
-  --status-success-bg: #14532d;
-  --status-success-foreground: #6ee7b7;
-  --status-info-bg: #0c4a6e;
-  --status-info-foreground: #7dd3fc;
-  --status-error-bg: #7f1d1d;
-  --status-error-foreground: #fda4af;
-  --status-warning-bg: #78350f;
-  --status-warning-foreground: #fcd34d;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1020;
+    --surface: #121a2e;
+    --surface-2: #18223a;
+    --text: #e6e9f2;
+    --muted: #98a2b8;
+    --border: #243049;
+    --brand: #818cf8;
+    --brand-2: #38bdf8;
+    --brand-ink: #0b1020;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    color-scheme: dark;
+  }
 }
 
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-feature-settings: "rlig" 1, "calt" 1;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+code { background: var(--surface-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 6px; word-break: break-all; }
+pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+pre code { background: none; border: 0; padding: 0; word-break: normal; }
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 12px; top: 12px; background: var(--surface); padding: 8px 12px; border-radius: 8px; z-index: 100; }
+
+/* Header */
+.header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(180%) blur(10px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); font-size: 1.1rem; }
+.logo:hover { text-decoration: none; }
+.logo-mark { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; color: #fff; font-size: 0.8rem; font-weight: 800; background: linear-gradient(135deg, #4f46e5, #0ea5e9); }
+.nav { display: flex; gap: 4px; align-items: center; }
+.nav a { color: var(--muted); padding: 8px 12px; border-radius: 9px; font-weight: 500; font-size: 0.95rem; }
+.nav a:hover { color: var(--text); background: var(--surface-2); text-decoration: none; }
+.nav a[aria-current="page"] { color: var(--text); background: var(--surface-2); }
+.menu { display: none; }
+.menu summary { list-style: none; cursor: pointer; padding: 8px 12px; border: 1px solid var(--border); border-radius: 9px; font-weight: 600; }
+.menu summary::-webkit-details-marker { display: none; }
+.menu-panel { position: absolute; right: 20px; top: 58px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 8px; display: flex; flex-direction: column; min-width: 180px; }
+.menu-panel a { padding: 10px 12px; border-radius: 8px; color: var(--text); }
+@media (max-width: 720px) {
+  .nav { display: none; }
+  .menu { display: block; }
 }
 
-/* prefers-reduced-motion: halt all animations and transitions for users
-   who have requested reduced motion via their OS/browser settings.
-   - animate-spin (and any Tailwind animation utility) is stopped by
-     setting animation to none.
-   - All CSS transitions are collapsed to instant (duration 0ms) so
-     elements snap to their end state without motion.
-   - scroll-behavior is set to auto to prevent smooth scrolling.
-   Elements that serve as static loading indicators (e.g. the spinner SVG
-   inside WalletConnectButton) remain visible in the DOM; only the
-   rotation is halted so the indicator is still perceivable. */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    transition-delay: 0ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; border: 1px solid transparent; cursor: pointer; transition: transform 0.08s ease, background 0.15s ease; font-family: inherit; }
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn-primary { background: var(--brand); color: var(--brand-ink); }
+.btn-secondary { background: var(--surface); color: var(--text); border-color: var(--border); }
+.btn-sm { padding: 7px 12px; font-size: 0.85rem; border-radius: 8px; }
 
-  /* Explicitly stop Tailwind's animate-spin so the spinner SVG becomes
-     a static circle rather than a continuously rotating element. The
-     element remains in the DOM and is still visible as a loading cue. */
-  .animate-spin {
-    animation: none !important;
-  }
+/* Hero */
+.hero { position: relative; overflow: hidden; padding: 88px 0 72px; }
+.hero::before { content: ""; position: absolute; inset: -40% -10% auto; height: 620px; background: radial-gradient(closest-side, color-mix(in srgb, var(--brand) 22%, transparent), transparent), radial-gradient(closest-side at 70% 40%, color-mix(in srgb, var(--brand-2) 18%, transparent), transparent); z-index: -1; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 0.85rem; font-weight: 500; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent); }
+.hero h1 { font-size: clamp(2.3rem, 5.5vw, 3.9rem); margin: 20px 0 16px; max-width: 820px; }
+.grad { background: linear-gradient(90deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: 1.18rem; color: var(--muted); max-width: 640px; margin: 0 0 30px; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* Freeze the shimmer skeleton animation. The block remains visible as
-     a static grey placeholder so users with reduced-motion still perceive
-     the loading state without any movement. */
-  .animate-shimmer {
-    animation: none !important;
-    background-image: none !important;
-  }
+/* Sections */
+.section { padding: 64px 0; }
+.section-alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.section h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 10px; }
+.section-lead { color: var(--muted); margin: 0 0 36px; max-width: 640px; }
+.grid { display: grid; gap: 18px; }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr)); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); min-width: 0; }
+.section-alt .card { background: var(--bg); }
+.card h3 { margin: 0 0 8px; font-size: 1.08rem; }
+.card p { margin: 0; color: var(--muted); }
+.icon { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; margin-bottom: 14px; font-size: 1.2rem; background: color-mix(in srgb, var(--brand) 14%, transparent); color: var(--brand); font-weight: 700; }
+.step-num { font-size: 0.8rem; font-weight: 700; color: var(--brand); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
 
-  /* Freeze pulse animations on skeleton components (e.g. MilestonesListSkeleton). */
-  .animate-pulse {
-    animation: none !important;
-  }
-}
+.kv { display: grid; grid-template-columns: 140px 1fr; gap: 10px 16px; align-items: start; }
+.kv dt { color: var(--muted); font-size: 0.9rem; }
+.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 560px) { .kv { grid-template-columns: 1fr; gap: 2px; } .kv dd { margin-bottom: 10px; } }
 
-/* forced-colors / high-contrast mode: ensures legibility and clear component
-   boundaries for users on Windows High Contrast / Forced Colors mode. */
-@media (forced-colors: active) {
-  /* Progress bar container and fill visibility in high-contrast mode */
-  [role="progressbar"] {
-    border: 1px solid CanvasText !important;
-  }
+.cta { text-align: center; padding: 48px 24px; border-radius: 20px; background: linear-gradient(135deg, #4f46e5, #0ea5e9); color: #fff; }
+.cta h2 { color: #fff; }
+.cta p { color: rgba(255,255,255,0.88); margin: 0 auto 24px; max-width: 560px; }
+.cta .btn-primary { background: #fff; color: #312e81; }
 
-  [role="progressbar"] > div {
-    background-color: Highlight !important;
-    forced-color-adjust: none;
-  }
+/* Page */
+.page-head { padding: 52px 0 24px; }
+.page-head h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin: 0 0 8px; }
+.page-head p { color: var(--muted); margin: 0; max-width: 680px; }
 
-  /* Status chips, filter radios, and alert containers high contrast borders */
-  [role="listitem"],
-  [role="status"],
-  fieldset label {
-    border: 1px solid CanvasText !important;
-  }
+/* Docs */
+.docs { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding-bottom: 64px; }
+.toc { position: sticky; top: 84px; align-self: start; display: flex; flex-direction: column; gap: 2px; }
+.toc a { color: var(--muted); padding: 6px 10px; border-radius: 8px; font-size: 0.93rem; }
+.toc a:hover { background: var(--surface-2); color: var(--text); text-decoration: none; }
+.prose { min-width: 0; }
+.prose section { scroll-margin-top: 84px; margin-bottom: 44px; }
+.prose h2 { font-size: 1.6rem; margin: 0 0 12px; }
+.prose h3 { font-size: 1.12rem; margin: 22px 0 8px; }
+.prose p, .prose li { color: var(--muted); }
+.prose strong { color: var(--text); }
+.arch { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); gap: 12px; align-items: stretch; }
+.arch .card { text-align: center; }
+@media (max-width: 860px) { .docs { grid-template-columns: 1fr; } .toc { position: static; flex-direction: row; flex-wrap: wrap; } }
 
-  /* Selected filter state in radiogroup */
-  fieldset label:has(input:checked) {
-    background-color: Highlight !important;
-    color: HighlightText !important;
-    border: 1px solid Highlight !important;
-  }
+/* Tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--surface-2); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
 
-  /* ── Wallet-specific high-contrast rules ──
-     Ensures the wallet table, selected rows, status badges, toolbar, and
-     checkboxes remain legible and clearly distinguishable when forced-colors
-     mode is active (e.g. Windows High Contrast). */
+/* Forms */
+.form { display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; font-size: 0.9rem; }
+.input { width: 100%; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit; }
+.input:focus { outline: 2px solid color-mix(in srgb, var(--brand) 50%, transparent); border-color: var(--brand); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row > .input { flex: 1 1 160px; }
 
-  /* Wallet table container and cell borders */
-  [data-wallet-table] {
-    border: 2px solid CanvasText !important;
-  }
+/* Status */
+.badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 600; border: 1px solid var(--border); background: var(--surface-2); color: var(--muted); }
+.badge-Funded { color: #2563eb; background: color-mix(in srgb, #2563eb 12%, transparent); border-color: transparent; }
+.badge-Completed, .badge-Resolved { color: var(--ok); background: color-mix(in srgb, var(--ok) 12%, transparent); border-color: transparent; }
+.badge-Disputed { color: var(--warn); background: color-mix(in srgb, var(--warn) 14%, transparent); border-color: transparent; }
+.badge-Cancelled { color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); border-color: transparent; }
+.progress { height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.progress > span { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); }
+.alert { padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); font-size: 0.93rem; }
+.alert-error { border-color: color-mix(in srgb, var(--bad) 40%, transparent); color: var(--bad); }
+.muted { color: var(--muted); }
+.small { font-size: 0.87rem; }
+.stack { display: grid; gap: 14px; }
+.milestones { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 6px; }
+.milestones li { display: flex; justify-content: space-between; gap: 10px; font-size: 0.92rem; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  [data-wallet-table] th,
-  [data-wallet-table] td {
-    border-bottom: 1px solid CanvasText !important;
-  }
+/* Footer */
+.footer { border-top: 1px solid var(--border); padding: 36px 0; color: var(--muted); font-size: 0.92rem; }
+.footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+.footer a { color: var(--muted); }
+.footer a:hover { color: var(--text); }
 
-  /* Selected wallet rows: highlighted background with high-contrast text */
-  [data-wallet-table] tr[data-selected] {
-    background-color: Highlight !important;
-    color: HighlightText !important;
-    forced-color-adjust: none;
-  }
-
-  /* Wallet status badges: visible borders in forced-colors mode */
-  [data-wallet-status] {
-    border: 1px solid CanvasText !important;
-  }
-
-  /* Wallet bulk toolbar: visible border in forced-colors mode */
-  [data-wallet-toolbar] {
-    border: 2px solid CanvasText !important;
-  }
-
-  /* Wallet checkboxes: ensure they're visible in high-contrast */
-  [data-wallet-table] input[type="checkbox"] {
-    forced-color-adjust: auto;
-  }
-
-  /* Wallet delete buttons: ensure icon buttons have visible boundaries */
-  [data-wallet-table] button {
-    border: 1px solid ButtonText !important;
-  }
-}
-
-/* ---------------------------------------------------------------------------
- * Shimmer keyframe for LoadingSkeleton
- *
- * Creates a left-to-right highlight sweep using a CSS gradient and
- * background-position animation. The gradient is positioned so the bright
- * band starts off-screen to the left (-200% background-position) and
- * travels to the right (200%). background-size is set to 200% so the sweep
- * covers the full element width exactly once per cycle.
- *
- * This class is intentionally defined inside @layer utilities so Tailwind's
- * purge process does not strip it, and so it can be overridden by any
- * Tailwind utility class at the same specificity layer.
- * --------------------------------------------------------------------------- */
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-@layer utilities {
-  .animate-shimmer {
-    background-image: linear-gradient(
-      90deg,
-      #e2e8f0 0%,
-      #f1f5f9 40%,
-      #e2e8f0 60%,
-      #e2e8f0 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.6s ease-in-out infinite;
-  }
-}
+/* Dashboard */
+.dash { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 18px; align-items: start; padding-bottom: 64px; }
+@media (min-width: 901px) { .dash > form { position: sticky; top: 84px; } }
+@media (max-width: 900px) { .dash { grid-template-columns: 1fr; } }
